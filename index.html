@@ -1,0 +1,301 @@
+import React from 'react';
+import { Waves, AlertTriangle, Droplets, Radio } from 'lucide-react';
+
+export default function FloodDetectionSystem() {
+  return (
+    <div className="w-full max-w-6xl mx-auto p-8 bg-gradient-to-br from-blue-50 to-slate-100 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-bold text-center mb-2 text-slate-800">
+        FloodTect Ceiling-Mounted Flood Detection System
+      </h1>
+      <p className="text-center text-slate-600 mb-8">
+        Using JSN-SR04T Ultrasonic Sensors in FloodTect Housing
+      </p>
+
+      {/* Main 3D Diagram */}
+      <div className="bg-gradient-to-b from-slate-200 to-slate-100 rounded-lg p-6 mb-8 shadow-md">
+        <svg viewBox="0 0 1000 650" className="w-full h-auto">
+          <defs>
+            {/* Gradient for ceiling depth */}
+            <linearGradient id="ceilingGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{stopColor: '#A0826D', stopOpacity: 1}} />
+              <stop offset="100%" style={{stopColor: '#8B7355', stopOpacity: 1}} />
+            </linearGradient>
+            {/* Gradient for floor */}
+            <linearGradient id="floorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{stopColor: '#8B7355', stopOpacity: 1}} />
+              <stop offset="100%" style={{stopColor: '#6B5A45', stopOpacity: 1}} />
+            </linearGradient>
+            {/* Water gradient */}
+            <linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" style={{stopColor: '#85C1E9', stopOpacity: 0.9}} />
+              <stop offset="100%" style={{stopColor: '#3498DB', stopOpacity: 0.9}} />
+            </linearGradient>
+          </defs>
+
+          {/* Room Labels Above */}
+          <text x="280" y="30" textAnchor="middle" className="text-xl font-bold" fill="#27AE60">ROOM 1 - DRY ✓</text>
+          <text x="720" y="30" textAnchor="middle" className="text-xl font-bold" fill="#C0392B">ROOM 2 - FLOODED ⚠️</text>
+
+          {/* ========== LEFT ROOM (DRY) - 3D Perspective ========== */}
+          
+          {/* Back wall */}
+          <polygon points="100,120 460,120 440,500 120,500" fill="#D6EAF8" stroke="#2874A6" strokeWidth="2"/>
+          
+          {/* Right wall */}
+          <polygon points="460,120 520,80 520,460 440,500" fill="#AED6F1" stroke="#2874A6" strokeWidth="2"/>
+          
+          {/* Ceiling */}
+          <polygon points="100,120 460,120 520,80 160,80" fill="url(#ceilingGrad)" stroke="#654321" strokeWidth="2"/>
+          
+          {/* Floor */}
+          <polygon points="120,500 440,500 520,460 160,460" fill="url(#floorGrad)" stroke="#654321" strokeWidth="2"/>
+          
+          {/* FloodTect Device on ceiling - LEFT ROOM */}
+          <g transform="translate(280, 100)">
+            {/* 3D cylinder effect - bottom */}
+            <ellipse cx="0" cy="8" rx="26" ry="8" fill="#CCC" opacity="0.5"/>
+            {/* Main body */}
+            <ellipse cx="0" cy="0" rx="26" ry="8" fill="#F8F9FA" stroke="#333" strokeWidth="2"/>
+            <circle cx="0" cy="0" r="22" fill="#E9ECEF" stroke="#666" strokeWidth="1.5"/>
+            {/* Sensor center */}
+            <circle cx="0" cy="0" r="10" fill="#4A90E2" stroke="#333" strokeWidth="1.5"/>
+            <circle cx="0" cy="0" r="6" fill="#2E6DA4" opacity="0.7"/>
+            {/* LED indicator - GREEN */}
+            <circle cx="14" cy="-10" r="4" fill="#27AE60" stroke="#1E8449" strokeWidth="1.5"/>
+            <circle cx="14" cy="-10" r="6" fill="#27AE60" opacity="0.3"/>
+            {/* Mounting detail */}
+            <circle cx="-16" cy="0" r="2.5" fill="#666"/>
+            <circle cx="16" cy="0" r="2.5" fill="#666"/>
+          </g>
+          
+          {/* Label for device */}
+          <text x="280" y="135" textAnchor="middle" className="text-xs font-bold" fill="#333">FloodTect</text>
+          
+          {/* Ultrasonic beam visualization */}
+          <line x1="280" y1="108" x2="280" y2="480" stroke="#4A90E2" strokeWidth="3" strokeDasharray="10,5" opacity="0.6"/>
+          <polygon points="280,108 270,130 290,130" fill="#4A90E2" opacity="0.3"/>
+          <polygon points="280,250 260,280 300,280" fill="#4A90E2" opacity="0.2"/>
+          <polygon points="280,380 250,420 310,420" fill="#4A90E2" opacity="0.1"/>
+          
+          {/* Distance measurement */}
+          <line x1="350" y1="100" x2="350" y2="480" stroke="#27AE60" strokeWidth="3" strokeDasharray="5,5"/>
+          <text x="380" y="295" textAnchor="start" className="text-lg font-bold" fill="#27AE60">8 FT</text>
+          
+          {/* Status indicator */}
+          <rect x="150" y="520" width="260" height="50" fill="#D5F4E6" stroke="#27AE60" strokeWidth="2" rx="5"/>
+          <text x="280" y="542" textAnchor="middle" className="text-sm font-bold" fill="#27AE60">✓ NORMAL OPERATION</text>
+          <text x="280" y="560" textAnchor="middle" className="text-xs" fill="#27AE60">Distance: 8 FT | No Water Detected</text>
+
+          {/* ========== RIGHT ROOM (FLOODED) - 3D Perspective ========== */}
+          
+          {/* Back wall */}
+          <polygon points="540,120 900,120 880,500 560,500" fill="#D6EAF8" stroke="#2874A6" strokeWidth="2"/>
+          
+          {/* Right wall */}
+          <polygon points="900,120 960,80 960,460 880,500" fill="#AED6F1" stroke="#2874A6" strokeWidth="2"/>
+          
+          {/* Ceiling */}
+          <polygon points="540,120 900,120 960,80 600,80" fill="url(#ceilingGrad)" stroke="#654321" strokeWidth="2"/>
+          
+          {/* Floor (partially visible under water) */}
+          <polygon points="560,500 880,500 960,460 600,460" fill="url(#floorGrad)" stroke="#654321" strokeWidth="2"/>
+          
+          {/* WATER VOLUME - 3D */}
+          {/* Back face of water */}
+          <polygon points="560,340 880,340 880,500 560,500" fill="url(#waterGrad)" stroke="#2874A6" strokeWidth="2"/>
+          {/* Top surface of water (with perspective) */}
+          <polygon points="560,340 880,340 960,300 600,300" fill="#85C1E9" stroke="#2874A6" strokeWidth="2" opacity="0.8"/>
+          {/* Wave effects on water surface */}
+          <path d="M 560 340 Q 580 335 600 340 T 640 340 T 680 340 T 720 340 T 760 340 T 800 340 T 840 340 T 880 340" 
+                fill="none" stroke="#5DADE2" strokeWidth="2.5" opacity="0.9"/>
+          <path d="M 600 300 Q 620 295 640 300 T 680 300 T 720 300 T 760 300 T 800 300 T 840 300 T 880 300 T 920 300 T 960 300" 
+                fill="none" stroke="#5DADE2" strokeWidth="2.5" opacity="0.9"/>
+          {/* Right face of water */}
+          <polygon points="880,340 960,300 960,460 880,500" fill="#5DADE2" stroke="#2874A6" strokeWidth="2" opacity="0.7"/>
+          
+          {/* Water depth label */}
+          <text x="720" y="410" textAnchor="middle" className="text-2xl font-bold" fill="#FFF" stroke="#1A5276" strokeWidth="1">WATER</text>
+          <text x="720" y="440" textAnchor="middle" className="text-lg font-bold" fill="#FFF" stroke="#1A5276" strokeWidth="0.8">4 FEET DEEP</text>
+          
+          {/* FloodTect Device on ceiling - RIGHT ROOM */}
+          <g transform="translate(720, 100)">
+            {/* 3D cylinder effect - bottom */}
+            <ellipse cx="0" cy="8" rx="26" ry="8" fill="#CCC" opacity="0.5"/>
+            {/* Main body */}
+            <ellipse cx="0" cy="0" rx="26" ry="8" fill="#F8F9FA" stroke="#333" strokeWidth="2"/>
+            <circle cx="0" cy="0" r="22" fill="#E9ECEF" stroke="#666" strokeWidth="1.5"/>
+            {/* Sensor center */}
+            <circle cx="0" cy="0" r="10" fill="#E74C3C" stroke="#333" strokeWidth="1.5"/>
+            <circle cx="0" cy="0" r="6" fill="#C0392B" opacity="0.7"/>
+            {/* LED indicator - RED/FLASHING */}
+            <circle cx="14" cy="-10" r="4" fill="#E74C3C" stroke="#C0392B" strokeWidth="1.5"/>
+            <circle cx="14" cy="-10" r="6" fill="#E74C3C" opacity="0.5" className="animate-pulse"/>
+            <circle cx="14" cy="-10" r="8" fill="#E74C3C" opacity="0.2" className="animate-pulse"/>
+            {/* Mounting detail */}
+            <circle cx="-16" cy="0" r="2.5" fill="#666"/>
+            <circle cx="16" cy="0" r="2.5" fill="#666"/>
+          </g>
+          
+          {/* Label for device */}
+          <text x="720" y="135" textAnchor="middle" className="text-xs font-bold" fill="#333">FloodTect</text>
+          
+          {/* Ultrasonic beam visualization - shorter (hits water surface) */}
+          <line x1="720" y1="108" x2="720" y2="300" stroke="#E74C3C" strokeWidth="3" strokeDasharray="10,5" opacity="0.7"/>
+          <polygon points="720,108 710,130 730,130" fill="#E74C3C" opacity="0.4"/>
+          <polygon points="720,200 705,230 735,230" fill="#E74C3C" opacity="0.3"/>
+          <polygon points="720,270 700,300 740,300" fill="#E74C3C" opacity="0.2"/>
+          
+          {/* Reflection visualization */}
+          <text x="720" y="285" textAnchor="middle" className="text-xs font-bold" fill="#E74C3C">↑ ECHO ↑</text>
+          
+          {/* Distance measurement to water surface */}
+          <line x1="790" y1="100" x2="790" y2="300" stroke="#E74C3C" strokeWidth="3" strokeDasharray="5,5"/>
+          <text x="825" y="205" textAnchor="start" className="text-lg font-bold" fill="#E74C3C">4 FT</text>
+          <text x="825" y="225" textAnchor="start" className="text-sm" fill="#E74C3C">(to water)</text>
+          
+          {/* Status indicator */}
+          <rect x="590" y="520" width="260" height="50" fill="#FADBD8" stroke="#E74C3C" strokeWidth="2" rx="5"/>
+          <text x="720" y="542" textAnchor="middle" className="text-sm font-bold" fill="#C0392B">⚠️ FLOOD ALERT!</text>
+          <text x="720" y="560" textAnchor="middle" className="text-xs" fill="#C0392B">Distance: 4 FT | 4 Feet of Water!</text>
+        </svg>
+      </div>
+
+      {/* System Components */}
+      <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="bg-white rounded-lg p-6 shadow-md border-2 border-blue-200">
+          <h2 className="text-xl font-bold mb-4 text-slate-800 flex items-center gap-2">
+            <Radio className="text-blue-500" />
+            FloodTect Device Components
+          </h2>
+          <ul className="space-y-3 text-sm text-slate-700">
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 font-bold">•</span>
+              <span><strong>Housing:</strong> Smoke detector-style ceiling mount enclosure</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 font-bold">•</span>
+              <span><strong>Sensor:</strong> JSN-SR04T waterproof ultrasonic distance sensor (enclosed inside)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 font-bold">•</span>
+              <span><strong>LED Indicator:</strong> Green = Normal, Red/Flashing = Flood Alert</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 font-bold">•</span>
+              <span><strong>Microcontroller:</strong> Arduino/ESP32 for processing and alerts</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-blue-500 font-bold">•</span>
+              <span><strong>Power:</strong> Hardwired or battery backup</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="bg-white rounded-lg p-6 shadow-md border-2 border-amber-200">
+          <h2 className="text-xl font-bold mb-4 text-slate-800 flex items-center gap-2">
+            <AlertTriangle className="text-amber-500" />
+            How It Works
+          </h2>
+          <ol className="space-y-3 text-sm text-slate-700">
+            <li className="flex items-start gap-2">
+              <span className="text-amber-500 font-bold">1.</span>
+              <span><strong>Normal Operation:</strong> FloodTect measures 8 feet (ceiling to floor)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-500 font-bold">2.</span>
+              <span><strong>Water Detection:</strong> As water rises, distance decreases</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-500 font-bold">3.</span>
+              <span><strong>Alert Trigger:</strong> When distance drops below threshold (e.g., 7 feet = 1 foot of water)</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-amber-500 font-bold">4.</span>
+              <span><strong>Notification:</strong> LED flashes red, buzzer sounds, WiFi alert sent</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      {/* Comparison Table */}
+      <div className="bg-white rounded-lg p-6 shadow-md mb-8">
+        <h2 className="text-xl font-bold mb-4 text-slate-800">Status Comparison</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-slate-100">
+              <tr>
+                <th className="p-3 text-left">Room</th>
+                <th className="p-3 text-left">Distance Reading</th>
+                <th className="p-3 text-left">Water Depth</th>
+                <th className="p-3 text-left">LED Status</th>
+                <th className="p-3 text-left">Alert Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t bg-green-50">
+                <td className="p-3 font-semibold">Room 1 (Dry)</td>
+                <td className="p-3 text-green-700 font-bold">8 FT</td>
+                <td className="p-3">0 FT (No water)</td>
+                <td className="p-3">
+                  <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+                  Green (Normal)
+                </td>
+                <td className="p-3 text-green-700">✓ No Alert</td>
+              </tr>
+              <tr className="border-t bg-red-50">
+                <td className="p-3 font-semibold">Room 2 (Flooded)</td>
+                <td className="p-3 text-red-700 font-bold">4 FT</td>
+                <td className="p-3 font-bold text-red-700">4 FT (FLOODED!)</td>
+                <td className="p-3">
+                  <span className="inline-block w-3 h-3 rounded-full bg-red-500 mr-2 animate-pulse"></span>
+                  Red (Flashing)
+                </td>
+                <td className="p-3 text-red-700 font-bold">⚠️ FLOOD ALERT!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Technical Specs */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-6 shadow-md text-white mb-8">
+        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <Waves />
+          JSN-SR04T Technical Specifications
+        </h2>
+        <div className="grid md:grid-cols-4 gap-4 text-sm">
+          <div>
+            <p className="font-semibold mb-1">Measurement Range:</p>
+            <p>25cm - 450cm (10" - 15 ft)</p>
+          </div>
+          <div>
+            <p className="font-semibold mb-1">Accuracy:</p>
+            <p>±2mm precision</p>
+          </div>
+          <div>
+            <p className="font-semibold mb-1">Waterproof Rating:</p>
+            <p>IP67 (fully sealed)</p>
+          </div>
+          <div>
+            <p className="font-semibold mb-1">Response Time:</p>
+            <p>&lt; 60ms per reading</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Installation Notes */}
+      <div className="bg-amber-50 border-l-4 border-amber-500 p-5 rounded">
+        <h3 className="font-bold text-amber-900 mb-3 text-lg">⚠️ Installation Considerations:</h3>
+        <ul className="text-sm text-amber-800 space-y-2">
+          <li>• <strong>Mount FloodTect devices flat on ceiling</strong> (like smoke detectors) with sensor facing straight down</li>
+          <li>• <strong>Standard ceiling height:</strong> 8 feet - calibrate for your specific measurements</li>
+          <li>• <strong>Set alert threshold:</strong> Recommend trigger at 7 feet (= 1 foot of water) for early warning</li>
+          <li>• <strong>Multiple zones:</strong> Install one FloodTect device per room/area to monitor</li>
+          <li>• <strong>WiFi connectivity:</strong> Add for remote monitoring and smartphone alerts</li>
+          <li>• <strong>Power backup:</strong> Include battery backup in case of power outage during flooding</li>
+          <li>• <strong>Testing:</strong> Regular testing recommended (monthly) to ensure proper operation</li>
+        </ul>
+      </div>
+    </div>
+  );
+}
